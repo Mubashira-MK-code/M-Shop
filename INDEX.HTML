@@ -1,0 +1,1463 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>M-Shop | Online Shopping</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f8f8f8;
+            color: #333;
+        }
+
+
+        /* ================= NAVBAR ================= */
+
+        .navbar-main {
+            background: white;
+            border-bottom: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            text-decoration: none;
+            color: #9f2089;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .search-box {
+            width: 100%;
+            border: 1px solid #aaa;
+            border-radius: 6px;
+            padding: 11px 15px;
+            outline: none;
+        }
+
+        .search-box:focus {
+            border-color: #9f2089;
+        }
+
+        .nav-option {
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .nav-option i {
+            font-size: 22px;
+        }
+
+        .nav-option:hover {
+            color: #9f2089;
+        }
+
+
+        /* ================= CART COUNT ================= */
+
+        #cart-count {
+            background: #9f2089;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 7px;
+            font-size: 11px;
+            position: relative;
+            top: -12px;
+            left: -5px;
+        }
+
+
+        /* ================= CATEGORY NAV ================= */
+
+        .category-nav {
+            background: white;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .category-item {
+            padding: 14px 18px;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        .category-item:hover {
+            color: #9f2089;
+        }
+
+
+        /* ================= HERO ================= */
+
+        .hero {
+            margin-top: 25px;
+            background: #fce8f7;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            padding: 50px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            font-weight: bold;
+        }
+
+        .hero p {
+            color: #666;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .shop-btn {
+            background: #9f2089;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 6px;
+        }
+
+        .shop-btn:hover {
+            background: #7e196e;
+            color: white;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+
+
+        /* ================= CATEGORY CARDS ================= */
+
+        .category-card {
+            background: white;
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+        }
+
+        .category-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .category-card h6 {
+            margin-top: 12px;
+        }
+
+
+        /* ================= PRODUCT CARD ================= */
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #eee;
+            height: 100%;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 18px rgba(0,0,0,0.12);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-title {
+            font-size: 16px;
+            min-height: 45px;
+        }
+
+        .product-price {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .rating {
+            display: inline-block;
+            background: #038d63;
+            color: white;
+            padding: 3px 7px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+
+        /* ================= WISHLIST ================= */
+
+        .wishlist {
+            position: absolute;
+            right: 12px;
+            top: 12px;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: white;
+            border: none;
+            font-size: 20px;
+            z-index: 5;
+        }
+
+        .wishlist.active {
+            color: red;
+        }
+
+
+        /* ================= ADD CART ================= */
+
+        .add-cart {
+            width: 100%;
+            border: 1px solid #9f2089;
+            color: #9f2089;
+            background: white;
+            padding: 9px;
+            border-radius: 5px;
+        }
+
+        .add-cart:hover {
+            background: #9f2089;
+            color: white;
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #222;
+            color: white;
+            margin-top: 60px;
+            padding: 45px 0;
+        }
+
+        footer a {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 768px) {
+
+            .logo {
+                font-size: 25px;
+            }
+
+            .hero-content {
+                padding: 30px 20px;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 30px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+
+            .hero-image {
+                height: 250px;
+            }
+
+            .product-image {
+                height: 210px;
+            }
+
+            .category-card img {
+                height: 120px;
+            }
+        }
+
+
+        @media (max-width: 576px) {
+
+            .product-image {
+                height: 180px;
+            }
+
+            .product-title {
+                font-size: 14px;
+            }
+
+            .product-price {
+                font-size: 17px;
+            }
+
+            .hero h1 {
+                font-size: 26px;
+            }
+
+            .hero-image {
+                height: 200px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+                         NAVBAR
+====================================================== -->
+
+<nav class="navbar-main">
+
+    <div class="container">
+
+        <div class="row align-items-center py-3">
+
+            <!-- LOGO -->
+
+            <div class="col-6 col-md-2">
+
+                <a href="#" class="logo">
+                    M-Shop
+                </a>
+
+            </div>
+
+
+            <!-- SEARCH -->
+
+            <div class="col-12 col-md-5 order-3 order-md-2 mt-3 mt-md-0">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    class="search-box"
+                    placeholder="Search products..."
+                >
+
+            </div>
+
+
+            <!-- NAV OPTIONS -->
+
+            <div class="col-6 col-md-5 order-2 order-md-3">
+
+                <div class="d-flex justify-content-end gap-3">
+
+                    <div class="nav-option">
+
+                        <i class="bi bi-person"></i>
+
+                        <small class="d-block">
+                            Profile
+                        </small>
+
+                    </div>
+
+
+                    <div class="nav-option">
+
+                        <i class="bi bi-heart"></i>
+
+                        <small class="d-block">
+                            Wishlist
+                        </small>
+
+                    </div>
+
+
+                    <div class="nav-option">
+
+                        <i class="bi bi-cart"></i>
+
+                        <span id="cart-count">
+                            0
+                        </span>
+
+                        <small class="d-block">
+                            Cart
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =====================================================
+                     CATEGORY NAVIGATION
+====================================================== -->
+
+<div class="category-nav">
+
+    <div class="container">
+
+        <div class="d-flex overflow-auto">
+
+            <div class="category-item">
+                Women
+            </div>
+
+            <div class="category-item">
+                Men
+            </div>
+
+            <div class="category-item">
+                Kids
+            </div>
+
+            <div class="category-item">
+                Beauty
+            </div>
+
+            <div class="category-item">
+                Home & Kitchen
+            </div>
+
+            <div class="category-item">
+                Electronics
+            </div>
+
+            <div class="category-item">
+                Jewellery
+            </div>
+
+            <div class="category-item">
+                Footwear
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+                          MAIN
+====================================================== -->
+
+<div class="container">
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <div class="row align-items-center">
+
+            <div class="col-md-6">
+
+                <div class="hero-content">
+
+                    <h1>
+                        Shop Smart,<br>
+                        Shop Easy
+                    </h1>
+
+                    <p>
+                        Discover fashion, beauty, home products
+                        and much more at amazing prices.
+                    </p>
+
+                    <button class="shop-btn">
+                        Shop Now
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6">
+
+                <img
+                    src="IMAGES\banner.jpg"
+                    class="hero-image"
+                    alt="Shopping Banner"
+                >
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+                     SHOP BY CATEGORY
+    ================================================== -->
+
+    <section class="mt-5">
+
+        <h3 class="mb-4">
+            Shop By Category
+        </h3>
+
+
+        <div class="row g-3">
+
+
+            <!-- Fashion -->
+
+            <div class="col-6 col-md-3">
+
+                <div class="category-card">
+
+                    <img
+                        src="images/fashion.jpg"
+                        alt="Fashion"
+                    >
+
+                    <h6>
+                        Fashion
+                    </h6>
+
+                </div>
+
+            </div>
+
+
+            <!-- Beauty -->
+
+            <div class="col-6 col-md-3">
+
+                <div class="category-card">
+
+                    <img
+                        src="images/beauty.jpg"
+                        alt="Beauty"
+                    >
+
+                    <h6>
+                        Beauty
+                    </h6>
+
+                </div>
+
+            </div>
+
+
+            <!-- Home -->
+
+            <div class="col-6 col-md-3">
+
+                <div class="category-card">
+
+                    <img
+                        src="images/home.jpg"
+                        alt="Home"
+                    >
+
+                    <h6>
+                        Home
+                    </h6>
+
+                </div>
+
+            </div>
+
+
+            <!-- Accessories -->
+
+            <div class="col-6 col-md-3">
+
+                <div class="category-card">
+
+                    <img
+                        src="images/accessories.jpg"
+                        alt="Accessories"
+                    >
+
+                    <h6>
+                        Accessories
+                    </h6>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+                     TRENDING PRODUCTS
+    ================================================== -->
+
+    <section class="mt-5">
+
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <h3>
+                Trending Products
+            </h3>
+
+            <button
+                id="showAll"
+                class="btn btn-outline-secondary btn-sm">
+
+                View All
+
+            </button>
+
+        </div>
+
+
+
+        <div class="row g-3" id="productContainer">
+
+
+
+            <!-- ================= PRODUCT 1 ================= -->
+
+            <div
+                class="col-6 col-md-4 col-lg-3 product-item"
+                data-name="Women Cotton Kurti">
+
+                <div class="product-card">
+
+
+                    <button class="wishlist">
+
+                        <i class="bi bi-heart"></i>
+
+                    </button>
+
+
+                    <img
+                        src="images\kurti.jpg"
+                        class="product-image"
+                        alt="Women Cotton Kurti"
+                    >
+
+
+                    <div class="product-info">
+
+                        <div class="product-title">
+
+                            Women Cotton Kurti
+
+                        </div>
+
+
+                        <div class="mt-2">
+
+                            <span class="product-price">
+                                ₹499
+                            </span>
+
+                        </div>
+
+
+                        <div class="mt-2">
+
+                            <span class="rating">
+                                4.3 ★
+                            </span>
+
+                            <small class="text-muted">
+                                1,245 reviews
+                            </small>
+
+                        </div>
+
+
+                        <button class="add-cart mt-3">
+
+                            <i class="bi bi-cart-plus"></i>
+
+                            Add to Cart
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= PRODUCT 2 ================= -->
+
+            <div
+                class="col-6 col-md-4 col-lg-3 product-item"
+                data-name="Stylish Women's Handbag">
+
+                <div class="product-card">
+
+
+                    <button class="wishlist">
+
+                        <i class="bi bi-heart"></i>
+
+                    </button>
+
+
+                    <img
+                        src="images/handbag.jpg"
+                        class="product-image"
+                        alt="Women's Handbag"
+                    >
+
+
+                    <div class="product-info">
+
+                        <div class="product-title">
+
+                            Stylish Women's Handbag
+
+                        </div>
+
+
+                        <div class="mt-2">
+
+                            <span class="product-price">
+                                ₹699
+                            </span>
+
+                        </div>
+
+
+                        <div class="mt-2">
+
+                            <span class="rating">
+                                4.5 ★
+                            </span>
+
+                            <small class="text-muted">
+                                890 reviews
+                            </small>
+
+                        </div>
+
+
+                        <button class="add-cart mt-3">
+
+                            <i class="bi bi-cart-plus"></i>
+
+                            Add to Cart
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= PRODUCT 3 ================= -->
+
+            <div
+                class="col-6 col-md-4 col-lg-3 product-item"
+                data-name="Premium Smart Watch">
+
+                <div class="product-card">
+
+
+                    <button class="wishlist">
+
+                        <i class="bi bi-heart"></i>
+
+                    </button>
+
+
+                    <img
+                        src="images/watch.jpg"
+                        class="product-image"
+                        alt="Smart Watch"
+                    >
+
+
+                    <div class="product-info">
+
+                        <div class="product-title">
+
+                            Premium Smart Watch
+
+                        </div>
+
+
+                        <div class="mt-2">
+
+                            <span class="product-price">
+                                ₹999
+                            </span>
+
+                        </div>
+
+
+                        <div class="mt-2">
+
+                            <span class="rating">
+                                4.2 ★
+                            </span>
+
+                            <small class="text-muted">
+                                532 reviews
+                            </small>
+
+                        </div>
+
+
+                        <button class="add-cart mt-3">
+
+                            <i class="bi bi-cart-plus"></i>
+
+                            Add to Cart
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= PRODUCT 4 ================= -->
+
+            <div
+                class="col-6 col-md-4 col-lg-3 product-item"
+                data-name="Women's Stylish Sandals">
+
+                <div class="product-card">
+
+
+                    <button class="wishlist">
+
+                        <i class="bi bi-heart"></i>
+
+                    </button>
+
+
+                    <img
+                        src="images/sandals.jpg"
+                        class="product-image"
+                        alt="Women's Sandals"
+                    >
+
+
+                    <div class="product-info">
+
+                        <div class="product-title">
+
+                            Women's Stylish Sandals
+
+                        </div>
+
+
+                        <div class="mt-2">
+
+                            <span class="product-price">
+                                ₹399
+                            </span>
+
+                        </div>
+
+
+                        <div class="mt-2">
+
+                            <span class="rating">
+                                4.1 ★
+                            </span>
+
+                            <small class="text-muted">
+                                745 reviews
+                            </small>
+
+                        </div>
+
+
+                        <button class="add-cart mt-3">
+
+                            <i class="bi bi-cart-plus"></i>
+
+                            Add to Cart
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= PRODUCT 5 ================= -->
+
+            <div
+                class="col-6 col-md-4 col-lg-3 product-item"
+                data-name="Modern Home Decor">
+
+                <div class="product-card">
+
+
+                    <button class="wishlist">
+
+                        <i class="bi bi-heart"></i>
+
+                    </button>
+
+
+                    <img
+                        src="images/home decor.jpg"
+                        class="product-image"
+                        alt="Home Decor"
+                    >
+
+
+                    <div class="product-info">
+
+                        <div class="product-title">
+
+                            Modern Home Decor
+
+                        </div>
+
+
+                        <div class="mt-2">
+
+                            <span class="product-price">
+                                ₹599
+                            </span>
+
+                        </div>
+
+
+                        <div class="mt-2">
+
+                            <span class="rating">
+                                4.4 ★
+                            </span>
+
+                            <small class="text-muted">
+                                420 reviews
+                            </small>
+
+                        </div>
+
+
+                        <button class="add-cart mt-3">
+
+                            <i class="bi bi-cart-plus"></i>
+
+                            Add to Cart
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= PRODUCT 6 ================= -->
+
+            <div
+                class="col-6 col-md-4 col-lg-3 product-item"
+                data-name="Elegant Women's Dress">
+
+                <div class="product-card">
+
+
+                    <button class="wishlist">
+
+                        <i class="bi bi-heart"></i>
+
+                    </button>
+
+
+                    <img
+                        src="images/dress.jpg"
+                        class="product-image"
+                        alt="Women's Dress"
+                    >
+
+
+                    <div class="product-info">
+
+                        <div class="product-title">
+
+                            Elegant Women's Dress
+
+                        </div>
+
+
+                        <div class="mt-2">
+
+                            <span class="product-price">
+                                ₹799
+                            </span>
+
+                        </div>
+
+
+                        <div class="mt-2">
+
+                            <span class="rating">
+                                4.6 ★
+                            </span>
+
+                            <small class="text-muted">
+                                1,120 reviews
+                            </small>
+
+                        </div>
+
+
+                        <button class="add-cart mt-3">
+
+                            <i class="bi bi-cart-plus"></i>
+
+                            Add to Cart
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= PRODUCT 7 ================= -->
+
+            <div
+                class="col-6 col-md-4 col-lg-3 product-item"
+                data-name="Men Casual Shirt">
+
+                <div class="product-card">
+
+
+                    <button class="wishlist">
+
+                        <i class="bi bi-heart"></i>
+
+                    </button>
+
+
+                    <img
+                        src="images/shirt.jpg"
+                        class="product-image"
+                        alt="Men Casual Shirt"
+                    >
+
+
+                    <div class="product-info">
+
+                        <div class="product-title">
+
+                            Men's Casual Shirt
+
+                        </div>
+
+
+                        <div class="mt-2">
+
+                            <span class="product-price">
+                                ₹549
+                            </span>
+
+                        </div>
+
+
+                        <div class="mt-2">
+
+                            <span class="rating">
+                                4.2 ★
+                            </span>
+
+                            <small class="text-muted">
+                                640 reviews
+                            </small>
+
+                        </div>
+
+
+                        <button class="add-cart mt-3">
+
+                            <i class="bi bi-cart-plus"></i>
+
+                            Add to Cart
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= PRODUCT 8 ================= -->
+
+            <div
+                class="col-6 col-md-4 col-lg-3 product-item"
+                data-name="Beauty Makeup Kit">
+
+                <div class="product-card">
+
+
+                    <button class="wishlist">
+
+                        <i class="bi bi-heart"></i>
+
+                    </button>
+
+
+                    <img
+                        src="images/makeup.jpg"
+                        class="product-image"
+                        alt="Beauty Makeup Kit"
+                    >
+
+
+                    <div class="product-info">
+
+                        <div class="product-title">
+
+                            Beauty & Makeup Kit
+
+                        </div>
+
+
+                        <div class="mt-2">
+
+                            <span class="product-price">
+                                ₹449
+                            </span>
+
+                        </div>
+
+
+                        <div class="mt-2">
+
+                            <span class="rating">
+                                4.5 ★
+                            </span>
+
+                            <small class="text-muted">
+                                950 reviews
+                            </small>
+
+                        </div>
+
+
+                        <button class="add-cart mt-3">
+
+                            <i class="bi bi-cart-plus"></i>
+
+                            Add to Cart
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+</div>
+
+
+
+<!-- =====================================================
+                         FOOTER
+====================================================== -->
+
+<footer>
+
+    <div class="container">
+
+        <div class="row g-4">
+
+
+            <div class="col-6 col-md-3">
+
+                <h5>
+                    M-Shop
+                </h5>
+
+                <p>
+                    Your one-stop destination for
+                    affordable online shopping.
+                </p>
+
+            </div>
+
+
+            <div class="col-6 col-md-3">
+
+                <h5>
+                    Shop
+                </h5>
+
+                <a href="#">
+                    Women
+                </a>
+
+                <a href="#">
+                    Men
+                </a>
+
+                <a href="#">
+                    Kids
+                </a>
+
+                <a href="#">
+                    Beauty
+                </a>
+
+            </div>
+
+
+            <div class="col-6 col-md-3">
+
+                <h5>
+                    Help
+                </h5>
+
+                <a href="#">
+                    Contact Us
+                </a>
+
+                <a href="#">
+                    Returns
+                </a>
+
+                <a href="#">
+                    Shipping
+                </a>
+
+                <a href="#">
+                    FAQ
+                </a>
+
+            </div>
+
+
+            <div class="col-6 col-md-3">
+
+                <h5>
+                    Follow Us
+                </h5>
+
+                <div class="d-flex gap-3 fs-4">
+
+                    <i class="bi bi-instagram"></i>
+
+                    <i class="bi bi-facebook"></i>
+
+                    <i class="bi bi-youtube"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <hr>
+
+
+        <p class="text-center mb-0">
+
+            © 2026 M-Shop. All Rights Reserved.
+
+        </p>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =====================================================
+                         jQUERY
+====================================================== -->
+
+<script>
+
+$(document).ready(function () {
+
+
+    /* ================= CART ================= */
+
+    let cartCount = 0;
+
+
+    $(".add-cart").click(function () {
+
+        cartCount++;
+
+        $("#cart-count").text(cartCount);
+
+
+        $(this)
+            .text("✓ Added to Cart")
+            .css({
+                "background": "#9f2089",
+                "color": "white"
+            });
+
+    });
+
+
+
+    /* ================= WISHLIST ================= */
+
+    $(".wishlist").click(function () {
+
+        $(this).toggleClass("active");
+
+        $(this)
+            .find("i")
+            .toggleClass("bi-heart bi-heart-fill");
+
+    });
+
+
+
+    /* ================= SEARCH ================= */
+
+    $("#searchInput").on("keyup", function () {
+
+        let searchText =
+            $(this).val().toLowerCase();
+
+
+        $(".product-item").each(function () {
+
+            let productName =
+                $(this)
+                .data("name")
+                .toLowerCase();
+
+
+            if (productName.indexOf(searchText) !== -1) {
+
+                $(this).show();
+
+            } else {
+
+                $(this).hide();
+
+            }
+
+        });
+
+    });
+
+
+
+    /* ================= SHOP NOW ================= */
+
+    $(".shop-btn").click(function () {
+
+        $("html, body").animate({
+
+            scrollTop:
+                $("#productContainer").offset().top - 100
+
+        }, 700);
+
+    });
+
+
+
+    /* ================= VIEW ALL ================= */
+
+    $("#showAll").click(function () {
+
+        $(".product-item").fadeIn(400);
+
+    });
+
+
+});
+
+</script>
+
+
+</body>
+</html>
+```
